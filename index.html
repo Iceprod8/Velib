@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIO Discord</title>
+  <title>SIO Velib</title>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Source+Sans+Pro&display=swap">
   <link rel="stylesheet" href="./stylesheets/fontawesome-free-6.3.0-web/css/fontawesome.min.css" />
@@ -28,10 +28,48 @@
           </label>
         </div>
       </div>
-      <div class="selection"></div>
+      <div class="selection">
+        <div class="select-arr">
+          <select id="arrondisment" class="arrondisment button-style">
+            <option value="All">All</option>
+            <option value="92">Dep 92</option>
+            <option value="93">Dep 93</option>
+            <option value="94">Dep 94</option>
+            <option value="95">Dep 95</option>
+            <option value="1">Arr 1</option>
+            <option value="2">Arr 2</option>
+            <option value="3">Arr 3</option>
+            <option value="4">Arr 4</option>
+            <option value="5">Arr 5</option>
+            <option value="6">Arr 6</option>
+            <option value="7">Arr 7</option>
+            <option value="8">Arr 8</option>
+            <option value="9">Arr 9</option>
+            <option value="10">Arr 10</option>
+            <option value="11">Arr 11</option>
+            <option value="12">Arr 12</option>
+            <option value="13">Arr 13</option>
+            <option value="14">Arr 14</option>
+            <option value="15">Arr 15</option>
+            <option value="16">Arr 16</option>
+            <option value="17">Arr 17</option>
+            <option value="18">Arr 18</option>
+            <option value="19">Arr 19</option>
+            <option value="20">Arr 20</option>
+          </select>
+        </div>
+        <div class="select-ville">
+          <div class="submit">
+            <input id='input-ville' class="chosen-value button-style" type="text" value="" placeholder="Type to filter">
+            <ul id="liste-ville" class="value-list"></ul>
+          </div>
+        </div>
+      </div>
+      <button type="submit" id="button-selection" class="button-selection button-style">Send</button>
+      <ul id="affiche-selection" class="affiche-selection"></ul>
     </div>
   </div>
-  <script src="./javascripts/script.js"></script>
+  <script src="./bundle.js"></script>
 </body>
 
 </html>

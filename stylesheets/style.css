@@ -1,0 +1,138 @@
+:root {
+  --bg: #dfdee5;
+  --card: #c9c8ce;
+  --card-input: #b2b2b7;
+  --color-text: #1f2029;
+}
+
+.dark-mode {
+  --bg: #3f404c;
+  --card: #2A2B38;
+  --card-input: #1f2029;
+  --color-text: #dfdee5;
+}
+
+.borderButon {
+  border-color: var(--color-text) !important;
+}
+
+.colorButon {
+  background-color: var(--color-text) !important;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: sans-serif;
+  font-weight: 100;
+  background-attachment: fixed;
+  height: 100%;
+  margin: 0;
+  background: var(--bg) !important;
+}
+
+input::placeholder {
+  color: var(--color-text) !important;
+  opacity: 0.8 !important;
+}
+
+input:checked~.dot {
+  transform: translateX(100%);
+  /* background-color: #132b50; */
+}
+
+.darkmode {
+  position: absolute;
+  z-index: 1;
+  top: 5%;
+  right: 5%;
+}
+
+
+.selection{
+  margin: 8% 2% 2% 2%;
+  display: flex;
+  background-color: var(--bg) !important;
+  justify-content: space-evenly;
+}
+
+.select-arr{
+  position: relative;
+}
+.select-ville{
+  position: relative;
+  width: 25%;
+}
+
+.submit {
+  width: 100%;
+  text-align: center;
+  margin: 1em 0;
+}
+
+.button-style{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 1em 1.5em;
+    border-radius: 1.5em;
+    transition: all ease 0.125s;
+    background-color: var(--card-input) !important;
+}
+
+.button-style:hover {
+    outline: 4px solid #ffffff40;
+}
+/*
+
+    Selection Ville
+
+*/
+
+.chosen-value,
+.value-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.chosen-value {
+  font-family: "Ek Mukta";
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+.value-list {
+  list-style: none;
+  margin-top: 4rem;
+  box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  max-height: 0;
+  transition: 0.3s ease-in-out;
+}
+.value-list.open {
+  max-height: 320px;
+  overflow: auto;
+}
+.value-list li {
+  position: relative;
+  height: 4rem;
+  background-color: #fafcfd;
+  padding: 1rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  opacity: 1;
+}
+.value-list li:hover {
+  background-color: #ff908b;
+}
+.value-list li.closed {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  opacity: 0;
+}
