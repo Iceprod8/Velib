@@ -175,24 +175,10 @@ let minRange = document.getElementById('input-range1')
 let maxRange = document.getElementById('input-range2')
 
 
-function mapSelect(el) {
-  const listStation = el.map((sta) => {
-    let affiche = document.createElement('li')
-    affiche.classList.add('list-station')
-    affiche.innerHTML = `<p>${sta.ville},${sta.nom},${sta.nbVelosTotal},${sta.nbVelosMecanique},${sta.nbVelosElectrique},${sta.bornePayment}</p>`
-    return affiche
-  })
-  listStation.forEach((item) => {
-    if (item !== null) {
-      ulAffiche.appendChild(item);
-    }
-  });
-}
-
 function Select(el) {
   let affiche = document.createElement('li')
   affiche.classList.add('list-station')
-  affiche.innerHTML = `<p>${el.ville},${el.nom},${el.nbVelosTotal},${el.nbVelosMecanique},${el.nbVelosElectrique},${el.bornePayment}</p>`
+  affiche.innerHTML = `<p class="button-style">${el.ville},${el.nom},${el.nbVelosTotal},${el.nbVelosMecanique},${el.nbVelosElectrique},${el.bornePayment}</p>`
   ulAffiche.appendChild(affiche);
 }
 
@@ -202,7 +188,7 @@ button.addEventListener('click', () => {
   if (selectArr.value !== 'All') {
     ca = `${ca}A`
   }
-  if (inputVille.value !== '') {
+  if (inputVille.value !== '' && inputVille.value !== 'All') {
     ca = `${ca}V`
   }
   let select;
