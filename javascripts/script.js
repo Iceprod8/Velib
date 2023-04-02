@@ -178,7 +178,7 @@ let maxRange = document.getElementById('input-range2')
 function Select(el) {
   let affiche = document.createElement('li')
   affiche.classList.add('list-station')
-  affiche.innerHTML = `<p class="button-style">${el.ville},${el.nom},${el.nbVelosTotal},${el.nbVelosMecanique},${el.nbVelosElectrique},${el.bornePayment}</p>`
+  affiche.innerHTML = `<p class="">${el.ville},${el.nom},${el.nbVelosTotal},${el.nbVelosMecanique},${el.nbVelosElectrique},${el.bornePayment}</p>`
   ulAffiche.appendChild(affiche);
 }
 
