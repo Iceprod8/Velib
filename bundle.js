@@ -39329,73 +39329,65 @@ document.querySelector("input[type='checkbox']#dark-toggle").addEventListener('c
 
 /*
 
-  Selection avec entre de text et menu deroulant
+    Double Range Slider
 
 */
 
-const inputField = document.querySelector('.chosen-value');
-const dropdown = document.querySelector('.value-list');
-const dropdownArray = [... document.querySelectorAll('li')];
-console.log(typeof dropdownArray);
-dropdown.classList.add('open');
-inputField.focus(); // Demo purposes only
-let valueArray = [];
-dropdownArray.forEach(item => {
-  valueArray.push(item.textContent);
-});
 
-const closeDropdown = () => {
-  dropdown.classList.remove('open');
-};
+const rangeSliderEl = document.querySelector('.range-slider');
+const rangeSliderFromEl =
+      document.querySelector('.range-slider-from');
+const rangeSliderToEl =
+      document.querySelector('.range-slider-to');
 
-inputField.addEventListener('input', () => {
-  dropdown.classList.add('open');
-  let inputValue = inputField.value.toLowerCase();
-  let valueSubstring;
-  if (inputValue.length > 0) {
-    for (let j = 0; j < valueArray.length; j++) {
-      if (!(inputValue.substring(0, inputValue.length) === valueArray[j].substring(0, inputValue.length).toLowerCase())) {
-        dropdownArray[j].classList.add('closed');
-      } else {
-        dropdownArray[j].classList.remove('closed');
-      }
-    }
+rangeSliderFromEl.addEventListener('input', (e) => {
+  if (!(e.target.value > rangeSliderToEl.value)) {
+    rangeSliderEl.style.setProperty(
+      '--value-a',
+      e.target.value
+    );
+    rangeSliderEl.style.setProperty(
+      '--text-value-a',
+      JSON.stringify(e.target.value)
+    );
+    rangeInputFromEl.value = e.target.value;
   } else {
-    for (let i = 0; i < dropdownArray.length; i++) {
-      dropdownArray[i].classList.remove('closed');
-    }
+    rangeSliderEl.style.setProperty(
+      '--value-a',
+      rangeSliderToEl.value
+    );
+    rangeSliderEl.style.setProperty(
+      '--text-value-a',
+      JSON.stringify(rangeSliderToEl.value)
+    );
+    rangeSliderFromEl.value = rangeSliderToEl.value;
   }
 });
 
-dropdownArray.forEach(item => {
-  item.addEventListener('click', evt => {
-    inputField.value = item.textContent;
-    dropdownArray.forEach(dropdown => {
-      dropdown.classList.add('closed');
-    });
-  });
-});
-
-inputField.addEventListener('focus', () => {
-  inputField.placeholder = 'Type to filter';
-  dropdown.classList.add('open');
-  dropdownArray.forEach(dropdown => {
-    dropdown.classList.remove('closed');
-  });
-});
-
-inputField.addEventListener('blur', () => {
-  inputField.placeholder = 'Select state';
-  dropdown.classList.remove('open');
-});
-
-document.addEventListener('click', evt => {
-  const isDropdown = dropdown.contains(evt.target);
-  const isInput = inputField.contains(evt.target);
-  if (!isDropdown && !isInput) {
-    dropdown.classList.remove('open');
+rangeSliderToEl.addEventListener('input', (e) => {
+  if (!(e.target.value < rangeSliderFromEl.value)) {
+    rangeSliderEl.style.setProperty(
+      '--value-b',
+      e.target.value
+    );
+    rangeSliderEl.style.setProperty(
+      '--text-value-b',
+      JSON.stringify(e.target.value)
+    );
+    rangeInputToEl.value = e.target.value;
+  } else {
+    rangeSliderEl.style.setProperty(
+      '--value-a',
+      rangeSliderFromEl.value
+    );
+    rangeSliderEl.style.setProperty(
+      '--text-value-a',
+      JSON.stringify(rangeSliderFromEl.value)
+    );
+    rangeSliderToEl.value = rangeSliderFromEl.value;
   }
 });
+
 
 /*
 
@@ -39462,15 +39454,85 @@ request.get(disponibiliteStationsUrl, (err, response, body) => {
     });
   });
   ville.sort()
-  let listVille = document.getElementById('liste-ville')
+  let listVille = document.getElementById('list-ville-all')
   const listV = ville.map((v) => {
     let affiche = document.createElement('li')
+    affiche.classList.add('list-ville')
     affiche.innerHTML = `${v}`
     return affiche
   })
   listV.forEach((item) => {
     if (item !== null) {
       listVille.appendChild(item);
+    }
+  });
+  /*
+
+  Selection avec entre de text et menu deroulant
+
+*/
+
+  const inputField = document.querySelector('.chosen-value');
+  const dropdown = document.querySelector('.value-list');
+  const dropdownArray = [...document.querySelectorAll('.list-ville')];
+  console.log(typeof dropdownArray);
+  dropdown.classList.add('open');
+  inputField.focus(); // Demo purposes only
+  let valueArray = [];
+  dropdownArray.forEach(item => {
+    valueArray.push(item.textContent);
+  });
+
+  const closeDropdown = () => {
+    dropdown.classList.remove('open');
+  };
+
+  inputField.addEventListener('input', () => {
+    dropdown.classList.add('open');
+    let inputValue = inputField.value.toLowerCase();
+    let valueSubstring;
+    if (inputValue.length > 0) {
+      for (let j = 0; j < valueArray.length; j++) {
+        if (!(inputValue.substring(0, inputValue.length) === valueArray[j].substring(0, inputValue.length).toLowerCase())) {
+          dropdownArray[j].classList.add('closed');
+        } else {
+          dropdownArray[j].classList.remove('closed');
+        }
+      }
+    } else {
+      for (let i = 0; i < dropdownArray.length; i++) {
+        dropdownArray[i].classList.remove('closed');
+      }
+    }
+  });
+
+  dropdownArray.forEach(item => {
+    item.addEventListener('click', evt => {
+      inputField.value = item.textContent;
+      dropdownArray.forEach(dropdown => {
+        dropdown.classList.add('closed');
+      });
+    });
+  });
+
+  inputField.addEventListener('focus', () => {
+    inputField.placeholder = 'Type to filter';
+    dropdown.classList.add('open');
+    dropdownArray.forEach(dropdown => {
+      dropdown.classList.remove('closed');
+    });
+  });
+
+  inputField.addEventListener('blur', () => {
+    inputField.placeholder = 'Select state';
+    dropdown.classList.remove('open');
+  });
+
+  document.addEventListener('click', evt => {
+    const isDropdown = dropdown.contains(evt.target);
+    const isInput = inputField.contains(evt.target);
+    if (!isDropdown && !isInput) {
+      dropdown.classList.remove('open');
     }
   });
 });
@@ -46150,8 +46212,8 @@ function _setExports(ndebug) {
 
 module.exports = _setExports(process.env.NODE_NDEBUG);
 
-}).call(this)}).call(this,{"isBuffer":require("../../../../../../.nvm/versions/node/v16.15.1/lib/node_modules/browserify/node_modules/is-buffer/index.js")},require('_process'))
-},{"../../../../../../.nvm/versions/node/v16.15.1/lib/node_modules/browserify/node_modules/is-buffer/index.js":155,"_process":188,"assert":17,"stream":213,"util":254}],308:[function(require,module,exports){
+}).call(this)}).call(this,{"isBuffer":require("C:/Users/Nathan/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js")},require('_process'))
+},{"C:/Users/Nathan/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":155,"_process":188,"assert":17,"stream":213,"util":254}],308:[function(require,module,exports){
 
 /*!
  *  Copyright 2010 LearnBoost <dev@learnboost.com>
@@ -47686,8 +47748,8 @@ CombinedStream.prototype._emitError = function(err) {
   this.emit('error', err);
 };
 
-}).call(this)}).call(this,{"isBuffer":require("../../../../../../../.nvm/versions/node/v16.15.1/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../.nvm/versions/node/v16.15.1/lib/node_modules/browserify/node_modules/is-buffer/index.js":155,"delayed-stream":315,"stream":213,"util":254}],314:[function(require,module,exports){
+}).call(this)}).call(this,{"isBuffer":require("C:/Users/Nathan/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js")})
+},{"C:/Users/Nathan/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":155,"delayed-stream":315,"stream":213,"util":254}],314:[function(require,module,exports){
 (function (Buffer){(function (){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -47797,8 +47859,8 @@ function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
 
-}).call(this)}).call(this,{"isBuffer":require("../../../../../../../.nvm/versions/node/v16.15.1/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../.nvm/versions/node/v16.15.1/lib/node_modules/browserify/node_modules/is-buffer/index.js":155}],315:[function(require,module,exports){
+}).call(this)}).call(this,{"isBuffer":require("C:/Users/Nathan/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js")})
+},{"C:/Users/Nathan/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":155}],315:[function(require,module,exports){
 var Stream = require('stream').Stream;
 var util = require('util');
 
@@ -50770,8 +50832,8 @@ module.exports = {
 
 };
 
-}).call(this)}).call(this,{"isBuffer":require("../../../../../../../.nvm/versions/node/v16.15.1/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../.nvm/versions/node/v16.15.1/lib/node_modules/browserify/node_modules/is-buffer/index.js":155,"./utils":349,"assert-plus":307,"crypto":82,"http":228,"jsprim":357,"sshpk":404,"util":254}],349:[function(require,module,exports){
+}).call(this)}).call(this,{"isBuffer":require("C:/Users/Nathan/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js")})
+},{"./utils":349,"C:/Users/Nathan/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":155,"assert-plus":307,"crypto":82,"http":228,"jsprim":357,"sshpk":404,"util":254}],349:[function(require,module,exports){
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -81526,8 +81588,8 @@ Key._oldVersionDetect = function (obj) {
 	return ([1, 0]);
 };
 
-}).call(this)}).call(this,{"isBuffer":require("../../../../../../../.nvm/versions/node/v16.15.1/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../.nvm/versions/node/v16.15.1/lib/node_modules/browserify/node_modules/is-buffer/index.js":155,"./algs":385,"./dhe":387,"./ed-compat":388,"./errors":389,"./fingerprint":390,"./formats/auto":391,"./formats/dnssec":392,"./formats/pem":394,"./formats/pkcs1":395,"./formats/pkcs8":396,"./formats/putty":397,"./formats/rfc4253":398,"./formats/ssh":400,"./formats/ssh-private":399,"./private-key":406,"./signature":407,"./utils":409,"assert-plus":307,"crypto":82}],406:[function(require,module,exports){
+}).call(this)}).call(this,{"isBuffer":require("C:/Users/Nathan/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js")})
+},{"./algs":385,"./dhe":387,"./ed-compat":388,"./errors":389,"./fingerprint":390,"./formats/auto":391,"./formats/dnssec":392,"./formats/pem":394,"./formats/pkcs1":395,"./formats/pkcs8":396,"./formats/putty":397,"./formats/rfc4253":398,"./formats/ssh":400,"./formats/ssh-private":399,"./private-key":406,"./signature":407,"./utils":409,"C:/Users/Nathan/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":155,"assert-plus":307,"crypto":82}],406:[function(require,module,exports){
 // Copyright 2017 Joyent, Inc.
 
 module.exports = PrivateKey;

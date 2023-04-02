@@ -61,7 +61,17 @@
         <div class="select-ville">
           <div class="submit">
             <input id='input-ville' class="chosen-value button-style" type="text" value="" placeholder="Type to filter">
-            <ul id="liste-ville" class="value-list"></ul>
+            <ul id="list-ville-all" class="value-list"></ul>
+          </div>
+        </div>
+        <div class="select-vello-disp">
+          <div class="range-slider flat" data-ticks-position='top'
+            style='--min:0; --max:100; --value-a:1; --value-b:100; --suffix:""; --text-value-a:"1"; --text-value-b:"100";'>
+            <input class="range-slider-from" type="range" min="0" max="100" value="1">
+            <output></output>
+            <input class="range-slider-to" type="range" min="0" max="100" value="99">
+            <output></output>
+            <div class='range-slider__progress'></div>
           </div>
         </div>
       </div>

@@ -9,73 +9,63 @@ document.querySelector("input[type='checkbox']#dark-toggle").addEventListener('c
 
 /*
 
-  Selection avec entre de text et menu deroulant
+    Double Range Slider
 
 */
 
-const inputField = document.querySelector('.chosen-value');
-const dropdown = document.querySelector('.value-list');
-const dropdownArray = [... document.querySelectorAll('li')];
-console.log(typeof dropdownArray);
-dropdown.classList.add('open');
-inputField.focus(); // Demo purposes only
-let valueArray = [];
-dropdownArray.forEach(item => {
-  valueArray.push(item.textContent);
-});
 
-const closeDropdown = () => {
-  dropdown.classList.remove('open');
-};
+const rangeSliderEl = document.querySelector('.range-slider');
+const rangeSliderFromEl = document.querySelector('.range-slider-from');
+const rangeSliderToEl = document.querySelector('.range-slider-to');
 
-inputField.addEventListener('input', () => {
-  dropdown.classList.add('open');
-  let inputValue = inputField.value.toLowerCase();
-  let valueSubstring;
-  if (inputValue.length > 0) {
-    for (let j = 0; j < valueArray.length; j++) {
-      if (!(inputValue.substring(0, inputValue.length) === valueArray[j].substring(0, inputValue.length).toLowerCase())) {
-        dropdownArray[j].classList.add('closed');
-      } else {
-        dropdownArray[j].classList.remove('closed');
-      }
-    }
+rangeSliderFromEl.addEventListener('input', (e) => {
+  if (!(e.target.value > rangeSliderToEl.value)) {
+    rangeSliderEl.style.setProperty(
+      '--value-a',
+      e.target.value
+    );
+    rangeSliderEl.style.setProperty(
+      '--text-value-a',
+      JSON.stringify(e.target.value)
+    );
+    rangeInputFromEl.value = e.target.value;
   } else {
-    for (let i = 0; i < dropdownArray.length; i++) {
-      dropdownArray[i].classList.remove('closed');
-    }
+    rangeSliderEl.style.setProperty(
+      '--value-a',
+      rangeSliderToEl.value
+    );
+    rangeSliderEl.style.setProperty(
+      '--text-value-a',
+      JSON.stringify(rangeSliderToEl.value)
+    );
+    rangeSliderFromEl.value = rangeSliderToEl.value;
   }
 });
 
-dropdownArray.forEach(item => {
-  item.addEventListener('click', evt => {
-    inputField.value = item.textContent;
-    dropdownArray.forEach(dropdown => {
-      dropdown.classList.add('closed');
-    });
-  });
-});
-
-inputField.addEventListener('focus', () => {
-  inputField.placeholder = 'Type to filter';
-  dropdown.classList.add('open');
-  dropdownArray.forEach(dropdown => {
-    dropdown.classList.remove('closed');
-  });
-});
-
-inputField.addEventListener('blur', () => {
-  inputField.placeholder = 'Select state';
-  dropdown.classList.remove('open');
-});
-
-document.addEventListener('click', evt => {
-  const isDropdown = dropdown.contains(evt.target);
-  const isInput = inputField.contains(evt.target);
-  if (!isDropdown && !isInput) {
-    dropdown.classList.remove('open');
+rangeSliderToEl.addEventListener('input', (e) => {
+  if (!(e.target.value < rangeSliderFromEl.value)) {
+    rangeSliderEl.style.setProperty(
+      '--value-b',
+      e.target.value
+    );
+    rangeSliderEl.style.setProperty(
+      '--text-value-b',
+      JSON.stringify(e.target.value)
+    );
+    rangeInputToEl.value = e.target.value;
+  } else {
+    rangeSliderEl.style.setProperty(
+      '--value-a',
+      rangeSliderFromEl.value
+    );
+    rangeSliderEl.style.setProperty(
+      '--text-value-a',
+      JSON.stringify(rangeSliderFromEl.value)
+    );
+    rangeSliderToEl.value = rangeSliderFromEl.value;
   }
 });
+
 
 /*
 
@@ -142,15 +132,85 @@ request.get(disponibiliteStationsUrl, (err, response, body) => {
     });
   });
   ville.sort()
-  let listVille = document.getElementById('liste-ville')
+  let listVille = document.getElementById('list-ville-all')
   const listV = ville.map((v) => {
     let affiche = document.createElement('li')
+    affiche.classList.add('list-ville')
     affiche.innerHTML = `${v}`
     return affiche
   })
   listV.forEach((item) => {
     if (item !== null) {
       listVille.appendChild(item);
+    }
+  });
+  /*
+
+  Selection avec entre de text et menu deroulant
+
+*/
+
+  const inputField = document.querySelector('.chosen-value');
+  const dropdown = document.querySelector('.value-list');
+  const dropdownArray = [...document.querySelectorAll('.list-ville')];
+  console.log(typeof dropdownArray);
+  dropdown.classList.add('open');
+  inputField.focus(); // Demo purposes only
+  let valueArray = [];
+  dropdownArray.forEach(item => {
+    valueArray.push(item.textContent);
+  });
+
+  const closeDropdown = () => {
+    dropdown.classList.remove('open');
+  };
+
+  inputField.addEventListener('input', () => {
+    dropdown.classList.add('open');
+    let inputValue = inputField.value.toLowerCase();
+    let valueSubstring;
+    if (inputValue.length > 0) {
+      for (let j = 0; j < valueArray.length; j++) {
+        if (!(inputValue.substring(0, inputValue.length) === valueArray[j].substring(0, inputValue.length).toLowerCase())) {
+          dropdownArray[j].classList.add('closed');
+        } else {
+          dropdownArray[j].classList.remove('closed');
+        }
+      }
+    } else {
+      for (let i = 0; i < dropdownArray.length; i++) {
+        dropdownArray[i].classList.remove('closed');
+      }
+    }
+  });
+
+  dropdownArray.forEach(item => {
+    item.addEventListener('click', evt => {
+      inputField.value = item.textContent;
+      dropdownArray.forEach(dropdown => {
+        dropdown.classList.add('closed');
+      });
+    });
+  });
+
+  inputField.addEventListener('focus', () => {
+    inputField.placeholder = 'Type to filter';
+    dropdown.classList.add('open');
+    dropdownArray.forEach(dropdown => {
+      dropdown.classList.remove('closed');
+    });
+  });
+
+  inputField.addEventListener('blur', () => {
+    inputField.placeholder = 'Select state';
+    dropdown.classList.remove('open');
+  });
+
+  document.addEventListener('click', evt => {
+    const isDropdown = dropdown.contains(evt.target);
+    const isInput = inputField.contains(evt.target);
+    if (!isDropdown && !isInput) {
+      dropdown.classList.remove('open');
     }
   });
 });
