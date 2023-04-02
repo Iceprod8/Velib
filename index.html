@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIO Velib</title>
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Source+Sans+Pro&display=swap">
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;1000&family=Source+Sans+Pro&display=swap">
   <link rel="stylesheet" href="./stylesheets/fontawesome-free-6.3.0-web/css/fontawesome.min.css" />
   <link rel="stylesheet" href="./stylesheets/reset.min.css">
   <link rel="stylesheet" href="./stylesheets/style.css">
@@ -17,67 +17,87 @@
 
 <body>
   <div class="all">
-    <div id="parentAll" class="min-h-screen w-full">
-      <div class="flex flex-row justify-between toggle">
-        <div class="darkmode">
-          <label class="flex items-center cursor-pointer" for="dark-toggle">
-            <div class="relative"><input class="checkbox hidden" id="dark-toggle" type="checkbox" name="dark-mode" />
-              <div class="block w-14 h-8 rounded-full border-[1px] borderButon"></div>
-              <div class="dot absolute left-1 top-1 w-6 h-6 rounded-full transition colorButon"></div>
-            </div>
-          </label>
+    <div class="darkmode">
+      <label class="flex items-center cursor-pointer" for="dark-toggle">
+        <div class="relative"><input class="checkbox hidden" id="dark-toggle" type="checkbox" name="dark-mode" />
+          <div class="block w-14 h-8 rounded-full border-[1px] borderButon"></div>
+          <div class="dot absolute left-1 top-1 w-6 h-6 rounded-full transition colorButon"></div>
         </div>
-      </div>
-      <div class="selection">
-        <div class="select-arr">
-          <select id="arrondisment" class="arrondisment button-style">
-            <option value="All">All</option>
-            <option value="92">Dep 92</option>
-            <option value="93">Dep 93</option>
-            <option value="94">Dep 94</option>
-            <option value="95">Dep 95</option>
-            <option value="1">Arr 1</option>
-            <option value="2">Arr 2</option>
-            <option value="3">Arr 3</option>
-            <option value="4">Arr 4</option>
-            <option value="5">Arr 5</option>
-            <option value="6">Arr 6</option>
-            <option value="7">Arr 7</option>
-            <option value="8">Arr 8</option>
-            <option value="9">Arr 9</option>
-            <option value="10">Arr 10</option>
-            <option value="11">Arr 11</option>
-            <option value="12">Arr 12</option>
-            <option value="13">Arr 13</option>
-            <option value="14">Arr 14</option>
-            <option value="15">Arr 15</option>
-            <option value="16">Arr 16</option>
-            <option value="17">Arr 17</option>
-            <option value="18">Arr 18</option>
-            <option value="19">Arr 19</option>
-            <option value="20">Arr 20</option>
-          </select>
-        </div>
-        <div class="select-ville">
-          <div class="submit">
-            <input id='input-ville' class="chosen-value button-style" type="text" value="" placeholder="Type to filter">
-            <ul id="list-ville-all" class="value-list"></ul>
-          </div>
-        </div>
-        <div class="select-vello-disp">
-          <div class="range-slider flat" data-ticks-position='top'
-            style='--min:0; --max:100; --value-a:1; --value-b:100; --suffix:""; --text-value-a:"1"; --text-value-b:"100";'>
-            <input class="range-slider-from" type="range" min="0" max="100" value="1">
-            <output></output>
-            <input class="range-slider-to" type="range" min="0" max="100" value="99">
-            <output></output>
-            <div class='range-slider__progress'></div>
-          </div>
-        </div>
-      </div>
-      <button type="submit" id="button-selection" class="button-selection button-style">Send</button>
-      <ul id="affiche-selection" class="affiche-selection"></ul>
+      </label>
     </div>
+    <div class="selection">
+      <div class="select-arr">
+        <select id="arrondisment" class="arrondisment button-style">
+          <option value="All">All</option>
+          <option value="92">Dep 92</option>
+          <option value="93">Dep 93</option>
+          <option value="94">Dep 94</option>
+          <option value="95">Dep 95</option>
+          <option value="1">Arr 1</option>
+          <option value="2">Arr 2</option>
+          <option value="3">Arr 3</option>
+          <option value="4">Arr 4</option>
+          <option value="5">Arr 5</option>
+          <option value="6">Arr 6</option>
+          <option value="7">Arr 7</option>
+          <option value="8">Arr 8</option>
+          <option value="9">Arr 9</option>
+          <option value="10">Arr 10</option>
+          <option value="11">Arr 11</option>
+          <option value="12">Arr 12</option>
+          <option value="13">Arr 13</option>
+          <option value="14">Arr 14</option>
+          <option value="15">Arr 15</option>
+          <option value="16">Arr 16</option>
+          <option value="17">Arr 17</option>
+          <option value="18">Arr 18</option>
+          <option value="19">Arr 19</option>
+          <option value="20">Arr 20</option>
+        </select>
+      </div>
+      <div class="select-ville">
+        <div class="submit">
+          <input id='input-ville' class="chosen-value button-style" type="text" value="" placeholder="Type to filter">
+          <ul id="list-ville-all" class="value-list"></ul>
+        </div>
+      </div>
+      <div class="select-velo-total">
+        <div slider id="slider-distance">
+          <div>
+            <div inverse-left style="width:70%;"></div>
+            <div inverse-right style="width:70%;"></div>
+            <div range style="left:0%;right:0%;"></div>
+            <span thumb style="left:0%;"></span>
+            <span thumb style="left:100%;"></span>
+            <div sign style="left:0%;">
+              <span id="value">0</span>
+            </div>
+            <div sign style="left:100%;">
+              <span id="value">100</span>
+            </div>
+          </div>
+          <input id='input-range1' type="range" tabindex="0" value="0" max="100" min="0" step="1" oninput="
+            this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[1].style.width=value+'%';
+            children[5].style.left=value+'%';
+            children[7].style.left=value+'%';children[11].style.left=value+'%';
+            children[11].childNodes[1].innerHTML=this.value;" />
+
+          <input id='input-range2' type="range" tabindex="0" value="100" max="100" min="0" step="1" oninput="
+            this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[3].style.width=(100-value)+'%';
+            children[5].style.right=(100-value)+'%';
+            children[9].style.left=value+'%';children[13].style.left=value+'%';
+            children[13].childNodes[1].innerHTML=this.value;" />
+        </div>
+      </div>
+    </div>
+    <button type="submit" id="button-selection" class="button-selection button-style">Send</button>
+    <ul id="affiche-selection" class="affiche-selection"></ul>
   </div>
   <script src="./bundle.js"></script>
 </body>

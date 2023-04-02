@@ -13,60 +13,6 @@ document.querySelector("input[type='checkbox']#dark-toggle").addEventListener('c
 
 */
 
-
-const rangeSliderEl = document.querySelector('.range-slider');
-const rangeSliderFromEl = document.querySelector('.range-slider-from');
-const rangeSliderToEl = document.querySelector('.range-slider-to');
-
-rangeSliderFromEl.addEventListener('input', (e) => {
-  if (!(e.target.value > rangeSliderToEl.value)) {
-    rangeSliderEl.style.setProperty(
-      '--value-a',
-      e.target.value
-    );
-    rangeSliderEl.style.setProperty(
-      '--text-value-a',
-      JSON.stringify(e.target.value)
-    );
-    rangeInputFromEl.value = e.target.value;
-  } else {
-    rangeSliderEl.style.setProperty(
-      '--value-a',
-      rangeSliderToEl.value
-    );
-    rangeSliderEl.style.setProperty(
-      '--text-value-a',
-      JSON.stringify(rangeSliderToEl.value)
-    );
-    rangeSliderFromEl.value = rangeSliderToEl.value;
-  }
-});
-
-rangeSliderToEl.addEventListener('input', (e) => {
-  if (!(e.target.value < rangeSliderFromEl.value)) {
-    rangeSliderEl.style.setProperty(
-      '--value-b',
-      e.target.value
-    );
-    rangeSliderEl.style.setProperty(
-      '--text-value-b',
-      JSON.stringify(e.target.value)
-    );
-    rangeInputToEl.value = e.target.value;
-  } else {
-    rangeSliderEl.style.setProperty(
-      '--value-a',
-      rangeSliderFromEl.value
-    );
-    rangeSliderEl.style.setProperty(
-      '--text-value-a',
-      JSON.stringify(rangeSliderFromEl.value)
-    );
-    rangeSliderToEl.value = rangeSliderFromEl.value;
-  }
-});
-
-
 /*
 
     Recup de la BDD Velib de opendata paris
@@ -225,6 +171,8 @@ let ulAffiche = document.getElementById('affiche-selection')
 let selectArr = document.getElementById('arrondisment');
 let inputVille = document.getElementById('input-ville')
 let button = document.getElementById('button-selection');
+let minRange = document.getElementById('input-range1')
+let maxRange = document.getElementById('input-range2')
 
 
 function mapSelect(el) {
@@ -263,18 +211,26 @@ button.addEventListener('click', () => {
     case '':
       for (let i = 0; i < Allarrondissements.length; i++) {
         select = arrondissements[Allarrondissements[i]];
-        mapSelect(select)
+        select.forEach(element => {
+          if (element.nbVelosTotal >= minRange.value && element.nbVelosTotal <= maxRange.value) {
+            Select(element)
+          }
+        });
       }
       break;
     case 'A':
       select = arrondissements[parseInt(selectArr.value)]
-      mapSelect(select)
+      select.forEach(element => {
+        if (element.nbVelosTotal >= minRange.value && element.nbVelosTotal <= maxRange.value) {
+          Select(element)
+        }
+      });
       break;
     case 'V':
       for (let i = 0; i < Allarrondissements.length; i++) {
         select = arrondissements[Allarrondissements[i]];
         select.forEach(element => {
-          if (element.ville === inputVille.value) {
+          if (element.ville === inputVille.value && (element.nbVelosTotal >= minRange.value && element.nbVelosTotal <= maxRange.value)) {
             Select(element)
           }
         });
@@ -283,7 +239,7 @@ button.addEventListener('click', () => {
     case 'AV':
       select = arrondissements[parseInt(selectArr.value)]
       select.forEach(element => {
-        if (element.ville === inputVille.value) {
+        if (element.ville === inputVille.value && (element.nbVelosTotal >= minRange.value && element.nbVelosTotal <= maxRange.value)) {
           Select(element)
         }
       });
