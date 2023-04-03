@@ -73,6 +73,9 @@ input:checked~.dot {
 }
 
 .select-arr {
+  display: flex;
+  justify-content: center;
+  width: 14%;
   position: relative;
   height: 30%;
 }
@@ -104,7 +107,6 @@ input:checked~.dot {
 .button-style:hover {
   outline: 4px solid #ffffff40;
 }
-
 /*
 
     Selection Ville
@@ -155,7 +157,7 @@ input:checked~.dot {
 }
 
 .value-list li:hover {
-  background-color: #ff908b;
+  background-color: #6138D8;
 }
 
 .value-list li.closed {
@@ -172,20 +174,19 @@ input:checked~.dot {
 */
 
 .select-velo-total {
-  width: 17%;
+  height: 30%;
+  width: 14%;
   display: flex;
   position: relative;
+  flex-direction: column;
 }
 
-.select-velo-total::after {
-  position: absolute;
-  text-align: center;
-  top: -30px;
-  left: 22px;
-  content: "Total de Velo dans la station";
+.text-velo{
+  position: relative;
   color: var(--color-text);
+  text-align: center;
+  top: -5%;
 }
-
 [slider] {
   height: 14px;
   border-radius: 10px;
@@ -222,7 +223,7 @@ input:checked~.dot {
   left: 0;
   height: 14px;
   border-radius: 14px;
-  background-color: var(--color-text);
+  background-color: #6138D8;
 }
 
 [slider]>div>[thumb] {
@@ -235,7 +236,7 @@ input:checked~.dot {
   margin-left: -11px;
   cursor: pointer;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-  background-color: var(--card-input);
+  background-color: var(--color-text);
   border-radius: 50%;
   outline: none;
 }
@@ -246,7 +247,6 @@ input:checked~.dot {
   -webkit-appearance: none;
   z-index: 3;
   height: 14px;
-  top: -2px;
   width: 100%;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
@@ -358,7 +358,17 @@ div[slider]>input[type=range]::-ms-tooltip {
 [slider]:hover>div>[sign] {
   opacity: 1;
 }
+/*
 
+    Button d'envoie
+
+*/
+.envoi{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2%;
+}
 /*
 
     Tableau des resultats
