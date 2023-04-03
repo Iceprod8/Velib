@@ -79,8 +79,9 @@ input:checked~.dot {
 
 .select-ville {
   position: relative;
-  width: 17%;
+  width: 14%;
   height: 30%;
+  z-index: 1;
 }
 
 .submit {
@@ -203,7 +204,7 @@ input:checked~.dot {
   left: 0;
   height: 14px;
   border-radius: 10px;
-  background-color: #CCC;
+  background-color: var(--card);
   margin: 0 7px;
 }
 
@@ -212,7 +213,7 @@ input:checked~.dot {
   right: 0;
   height: 14px;
   border-radius: 10px;
-  background-color: #CCC;
+  background-color: var(--card);
   margin: 0 7px;
 }
 
@@ -221,7 +222,7 @@ input:checked~.dot {
   left: 0;
   height: 14px;
   border-radius: 14px;
-  background-color: #1ABC9C;
+  background-color: var(--color-text);
 }
 
 [slider]>div>[thumb] {
@@ -234,7 +235,7 @@ input:checked~.dot {
   margin-left: -11px;
   cursor: pointer;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-  background-color: #FFF;
+  background-color: var(--card-input);
   border-radius: 50%;
   outline: none;
 }
@@ -323,8 +324,8 @@ div[slider]>input[type=range]::-ms-tooltip {
   margin-left: -11px;
   top: -39px;
   z-index: 3;
-  background-color: #1ABC9C;
-  color: #fff;
+  background-color: var(--card);
+  color: var(--color-text);
   width: 28px;
   height: 28px;
   border-radius: 28px;
@@ -345,7 +346,7 @@ div[slider]>input[type=range]::-ms-tooltip {
   border-right: 14px solid transparent;
   border-top-width: 16px;
   border-top-style: solid;
-  border-top-color: #1ABC9C;
+  border-top-color: var(--card);
 }
 
 [slider]>div>[sign]>span {
@@ -356,4 +357,62 @@ div[slider]>input[type=range]::-ms-tooltip {
 
 [slider]:hover>div>[sign] {
   opacity: 1;
+}
+
+/*
+
+    Tableau des resultats
+
+*/
+.container {
+  z-index: 0;
+  border: 1px;
+  display: flex;
+  max-height: 550px;
+  overflow-y: scroll;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  border: solid;
+  border-width: 1px;
+  border-color: var(--color-text);
+}
+table {
+  border-collapse: collapse;
+}
+
+#affiche{
+  background-color: #dfdee5;
+}
+th,
+td {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+th {
+  text-align: left;
+  color: #fff;
+}
+
+thead th {
+  background-color: #6138D8;
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+tbody td {
+  position: relative;
+}
+
+tbody td:hover:before {
+  content: "";
+  left: 0;
+  right: 0;
+  top: -9999px;
+  bottom: -9999px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: -1;
 }

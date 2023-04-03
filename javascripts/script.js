@@ -160,6 +160,17 @@ request.get(disponibiliteStationsUrl, (err, response, body) => {
     }
   });
 });
+/*
+
+    Range le tableau
+
+*/
+const compare = (ids, asc) => (row1, row2) => {
+  const tdValue = (row, ids) => row.children[ids].textContent;
+  const tri = (v1, v2) => v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2);
+  return tri(tdValue(asc ? row1 : row2, ids), tdValue(asc ? row2 : row1, ids));
+};
+let tbody, thx, trxb
 
 /*
 
@@ -173,17 +184,40 @@ let inputVille = document.getElementById('input-ville')
 let button = document.getElementById('button-selection');
 let minRange = document.getElementById('input-range1')
 let maxRange = document.getElementById('input-range2')
+let bodyAffiche;
 
 
 function Select(el) {
-  let affiche = document.createElement('li')
-  affiche.classList.add('list-station')
-  affiche.innerHTML = `<p class="">${el.ville},${el.nom},${el.nbVelosTotal},${el.nbVelosMecanique},${el.nbVelosElectrique},${el.bornePayment}</p>`
-  ulAffiche.appendChild(affiche);
+  let trAffiche = document.createElement('tr')
+  station = [el.ville, el.nom, el.nbVelosTotal, el.nbVelosMecanique, el.nbVelosElectrique, el.bornePayment]
+  for (let index = 0; index < 6; index++) {
+    let affiche = document.createElement('td')
+    affiche.innerHTML = station[index]
+    trAffiche.appendChild(affiche);
+  }
+  bodyAffiche.appendChild(trAffiche)
+  tbody = document.querySelector('tbody');
+  thx = document.querySelectorAll('th');
+  trxb = tbody.querySelectorAll('tr');
 }
-
 button.addEventListener('click', () => {
-  ulAffiche.innerHTML = ""
+  ulAffiche.style.display = ""
+  ulAffiche.innerHTML = `
+  <table id="table1" style="display: inline-table;">
+    <thead>
+        <tr>
+            <th>Ville</th>
+            <th>Nom de la station</th>
+            <th>Nombre de vélo</th>
+            <th>Vélo mecanique</th>
+            <th>Vélo electrique</th>
+            <th>Borne de payment</th>
+        </tr>
+    </thead>
+    <tbody id="affiche">
+    </tbody>
+  </table>`
+  bodyAffiche = document.getElementById('affiche')
   ca = ''
   if (selectArr.value !== 'All') {
     ca = `${ca}A`
@@ -230,5 +264,16 @@ button.addEventListener('click', () => {
         }
       });
       break;
+  }
+  /*
+
+    Range le tableau
+
+*/
+  if (thx !== undefined) {
+    thx.forEach(th => th.addEventListener('click', () => {
+      let classe = Array.from(trxb).sort(compare(Array.from(thx).indexOf(th), this.asc = !this.asc));
+      classe.forEach(tr => tbody.appendChild(tr));
+    }));
   }
 })
